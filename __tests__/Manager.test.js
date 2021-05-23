@@ -1,7 +1,7 @@
 const { expect } = require("@jest/globals");
 const Manager = require('../lib/Manager.js');
 
-test('creates an manager object', () => {
+test('creates a manager object', () => {
     const manager = new Manager('patrick', 1234, 'patricklago21@gmail.com', 9876);
   
     expect(manager).toEqual(expect.any(Object));
