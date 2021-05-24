@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generatePage = require('./src/generateHTML')
 
 const employeeArr = [];
 
@@ -102,6 +103,12 @@ const questions = [
         when: function(userResponse) {
             return userResponse.role === 'Intern'
         }
+    },
+    {
+        type: 'confirm',
+        name: 'addEmployee',
+        message: 'Would you like to add another employee?',
+        default: true
     }
 ]
 
@@ -110,12 +117,28 @@ function startPrompt() {
     .then(userResponse => {
         employeeArr.push(userResponse);
 
-        // if (userResponse.addEmployee) {
-        //     return startPrompt();
-        // } else {
-        //     return employeeArr;
-        // };
+        if (userResponse.addEmployee) {
+            return startPrompt();
+        } else {
+            return employeeArr;
+        };
     });
 };
 
-startPrompt();
+const writeToFile = (htmlContent) => {
+    fs.writeFile('./dist/employee-page.html', htmlContent, err => {
+        if (err) {
+            throw err
+        };
+        console.log('Your new employee page has been created!');
+    });
+};
+
+console.log("'Welcome to your team profile generator! Let's get started!");
+
+startPrompt()
+.then(userResponse => generatePage(userResponse))
+.then(generatedHTML => writeToFile(generatedHTML))
+.catch(err => {
+    console.log(err);
+});
