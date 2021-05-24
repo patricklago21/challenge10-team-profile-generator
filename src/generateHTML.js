@@ -13,28 +13,31 @@ const addEmployee = employeeInfo => {
 
         switch(role) {
             case 'Manager':
-                newEmployee = new Manager(name, id, email, role, employee.OfficNumber);
+                newEmployee = new Manager(name, id, email, employee.officeNumber);
                 employeeGet = newEmployee.getOfficeNumber();
+                console.log(newEmployee);
                 break;
             case 'Engineer':
-                newEmployee = new Engineer(name, id, email, role, employee.github);
+                newEmployee = new Engineer(name, id, email, employee.github);
                 employeeGet = newEmployee.getGithub();
+                console.log(newEmployee);
                 break;
             case 'Intern':
-                newEmployee = new Intern(name, id, email, role, employee.school);
+                newEmployee = new Intern(name, id, email, employee.school);
                 employeeGet = newEmployee.getSchool();
+                console.log(newEmployee);
                 break;
         };
 
         allCards += `
-        <div class="col-3">
+        <div class="col-4">
                 <div class="card border-primary mb-3">
                     <div class="card-header bg-primary text-white">${newEmployee.getRole()}</div>
-                    <div class="card-body text-primary">
-                      <h5 class="card-title">${newEmployee.getName()}</h5>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">${newEmployee.getName()}</h5>
                       <ul class="list-group">
-                        <li class="list-group-item">${newEmployee.getId()}</li>
-                        <li class="list-group-item">${newEmployee.getEmail()}</li>
+                        <li class="list-group-item">Email: ${newEmployee.getEmail()}</li>
+                        <li class="list-group-item">ID: ${newEmployee.getId()}</li>
                         <li class="list-group-item">${employeeGet}</li>
                       </ul>
                     </div>
@@ -57,7 +60,7 @@ const generatePage = templateData => {
     </head>
 
     <body>
-        <header class="bg-danger">
+        <header class="bg-danger" style="padding-top: 35px; padding-bottom: 35px; margin-bottom: 15px;">
             <p class="h1 text-center text-white">My Team</p>
         </header>
 
